@@ -3,8 +3,10 @@ package com.example.testfpga;
 import static com.example.testfpga.APIHandling.LoginRequest;
 //import static com.example.testfpga.APIHandling.homeURLRequest;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.os.StrictMode;
@@ -42,7 +44,12 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
         StrictMode.setThreadPolicy(policy);
-
+        if(!foregroundServiceRunning()) {
+            Intent serviceIntent = new Intent(this, MyForegroundService.class);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startForegroundService(serviceIntent);
+            }
+        }
         if (! Python.isStarted()) {
             Python.start(new AndroidPlatform(this));
 
@@ -89,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
             if (loginCode!=null && loginCode.equals("201")) {
                 Toast toast = Toast.makeText(context, "Login Successful", duration);
                 toast.show();
-                Intent intent = new Intent(MainActivity.this, com.example.testfpga.Home.class);
+                Intent intent = new Intent(MainActivity.this, Home.class);
                 startActivity(intent);
                 finish();
             }else {
@@ -97,5 +104,14 @@ public class MainActivity extends AppCompatActivity {
                 toast.show();
             }
         });
+    }
+    public boolean foregroundServiceRunning(){
+        ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for(ActivityManager.RunningServiceInfo service: activityManager.getRunningServices(Integer.MAX_VALUE)) {
+            if(MyForegroundService.class.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

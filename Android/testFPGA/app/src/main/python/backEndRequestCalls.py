@@ -111,11 +111,11 @@ def camViewByIndex(index):
 		return ""+ str(finalImage,'utf-8')
 	else:
 		return "0"
-'''
-PyObject frame = pym.callAttr("camViewByIndex", Index);
-String str_ = frame.toString();
-System.out.println(str_);
-byte data[] = android.util.Base64.decode(str_, Base64.DEFAULT);
-Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-((ImageView) findViewById(R.id.imageOfCamView)).setImageBitmap(bmp);
-'''
+
+def validateThroughNotification():
+	req = sessionId_.post("http://192.168.43.217:5000/api/vehicle/validateThroughNotification/")
+	if (req.status_code == 200):
+		return req.json()['isthreat']
+	else:
+		return "0"
+

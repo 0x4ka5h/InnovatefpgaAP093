@@ -15,9 +15,19 @@
         android:layout_centerInParent="true"
         android:orientation="vertical">
 
+        <ImageButton
+            android:id="@+id/exit_"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:src="@android:drawable/ic_delete"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             app:cardElevation="10dp"
             app:cardCornerRadius="20dp"
             android:id="@+id/gpsOne"
@@ -25,7 +35,6 @@
             app:cardBackgroundColor="#DA5F6A"
             app:cardMaxElevation="12dp"
             app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true"
             >
 
             <LinearLayout
@@ -36,7 +45,7 @@
 
                 <ImageView
                     android:id="@+id/img"
-                    android:layout_width="172dp"
+                    android:layout_width="140dp"
                     android:layout_height="86dp"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
@@ -47,7 +56,7 @@
                 <TextView
                     android:layout_width="140dp"
                     android:layout_height="56dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:text="current GPS \n Location"
                     android:textSize="20dp"
                     android:textStyle="bold" />
@@ -62,11 +71,11 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="10px"
-            android:background="@color/white_greyish" />
+            android:background="@android:color/transparent" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             app:cardElevation="10dp"
             app:cardCornerRadius="20dp"
             android:id="@+id/gpsOne"
@@ -74,7 +83,6 @@
             app:cardBackgroundColor="#DA5F6A"
             app:cardMaxElevation="12dp"
             app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true"
             >
 
             <LinearLayout
@@ -85,7 +93,7 @@
 
                 <ImageView
                     android:id="@+id/img"
-                    android:layout_width="172dp"
+                    android:layout_width="140dp"
                     android:layout_height="86dp"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
@@ -96,8 +104,8 @@
                 <TextView
                     android:layout_width="140dp"
                     android:layout_height="56dp"
-                    android:layout_marginTop="20dp"
-                    android:text="GPS Tracked till last inActive"
+                    android:layout_marginTop="10dp"
+                    android:text="Track GPS of last instinct"
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
@@ -111,11 +119,11 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dp"
-            android:background="@color/lite" />
+            android:background="@android:color/transparent" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             app:cardElevation="10dp"
             app:cardCornerRadius="20dp"
             android:id="@+id/gpsOne"
@@ -123,7 +131,6 @@
             app:cardBackgroundColor="#DA5F6A"
             app:cardMaxElevation="12dp"
             app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true"
             >
 
             <LinearLayout
@@ -134,19 +141,19 @@
 
                 <ImageView
                     android:id="@+id/img"
-                    android:layout_width="172dp"
+                    android:layout_width="140dp"
                     android:layout_height="86dp"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
                     android:background="@android:color/transparent"
                     android:contentDescription=""
-                    android:src="@drawable/gps_point" />
+                    android:src="@drawable/coveredpaths" />
 
                 <TextView
                     android:layout_width="140dp"
                     android:layout_height="72dp"
-                    android:layout_marginTop="20dp"
-                    android:text="All paths Covered by GPS"
+                    android:layout_marginTop="10dp"
+                    android:text="All covered paths"
                     android:textSize="20dp"
                     android:textStyle="bold" />
             </LinearLayout>

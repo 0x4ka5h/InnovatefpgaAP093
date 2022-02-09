@@ -9,6 +9,7 @@ import numpy as np
 from . import validatingPerson, reConstructModel
 faceValidationauth = Blueprint("faceValidationauth",__name__)
 
+dang = 0
 
 
 @faceValidationauth.route("/api/vehicle/ownerFriendValidation/", methods=['POST'])
@@ -31,7 +32,9 @@ def ownerFriendValidation():
         if validation_ >= 85:
             return "Block"
         else:
-            return redirect(url_for('validateThroughNotification',data))
+            dang = 1
+            cv2.imwrite("theft.png",image_)
+            return 
 
 
 
@@ -39,16 +42,39 @@ def ownerFriendValidation():
 @faceValidationauth.route("/api/vehicle/validateThroughNotification/")
 @login_required
 
-def validateThroughNotification(data):
+def validateThroughNotification():
     
-    ## sending notification to phone with  imageData  ##
-    ## need to write code ##
+    data = {'isthreat':dang}
 
     #if accepts
-    reConstructModel.addDataToTrustedPersons()
+    #reConstructModel.addDataToTrustedPersons()
 
     #else
-    reConstructModel.addDataToDeclinedPersons()
+    #reConstructModel.addDataToDeclinedPersons()
     
+    return jsonify(data),200
+
+
+@faceValidationauth.route("/api/vehicle/DataForNotification/")
+@login_required
+
+def DataForNotification():
     
-    return data
+    image = cv2.imread("apiCenter/static/check/theft.png")
+    _,encoded = cv2.imencode('.png',image)
+    base_encoded = base64.b64encode(encoded)
+    print(1)
+    return base_encoded
+
+@faceValidationauth.route("/api/vehicle/AcceptanceORDecline/")
+@login_required
+
+def AcceptanceORDecline():
+
+    choice = request.json.get('choice')
+    if choice == 1:
+        reConstructModel.addDataToTrustedPersons()
+    else:
+        reConstructModel.addDataToDeclinedPersons()
+    
+    return "0",200

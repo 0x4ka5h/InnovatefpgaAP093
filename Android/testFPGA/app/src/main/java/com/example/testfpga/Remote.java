@@ -2,6 +2,7 @@ package com.example.testfpga;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.chaquo.python.PyObject;
 import com.chaquo.python.Python;
@@ -40,9 +42,6 @@ public class Remote extends AppCompatActivity implements View.OnTouchListener {
         ImageButton location;
 
         int steerAngle,breakFunc_,accelaratorFunc_;
-        int usLeft_,usRight_,usBack_,speed_;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +65,7 @@ public class Remote extends AppCompatActivity implements View.OnTouchListener {
         );
 
         accelarator = findViewById(R.id.accelarator);
-        /*accelarator.setOnClickListener(
+        accelarator.setOnClickListener(
                 new View.OnClickListener(){
                     @Override
                     public void onClick(View v) {
@@ -74,22 +73,23 @@ public class Remote extends AppCompatActivity implements View.OnTouchListener {
                     }
                 }
 
-        );*/
+        );
 
-        accelarator.setOnTouchListener(new View.OnTouchListener() {
+        /*accelarator.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 System.out.println(1);
                 return true;
             }
-        });
+        });*/
         //location
         location = findViewById(R.id.location);
         location.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        ViewDialog alert = new ViewDialog();
+                        alert.showDialog(Remote.this);
                     }
                 }
         );
@@ -122,13 +122,32 @@ public class Remote extends AppCompatActivity implements View.OnTouchListener {
         @Override
         public void run() {
             List<PyObject> controlsDetails = pym.callAttr("retrieveforRC").asList();
-            speed_ = controlsDetails.get(0).toInt();
-            usLeft_ = controlsDetails.get(1).toInt();
-            usRight_ = controlsDetails.get(2).toInt();
-            usBack_ = controlsDetails.get(3).toInt();
+            int speed_ = controlsDetails.get(0).toInt();
+            int usLeft_ = controlsDetails.get(1).toInt();
+            int usRight_ = controlsDetails.get(2).toInt();
+            int usBack_ = controlsDetails.get(3).toInt();
+
+            ((TextView) findViewById(R.id.speedo)).setText(Integer.toString(speed_)+" kmph");
+
+            if (usLeft_==0){
+                ((ImageView) findViewById(R.id.left_block)).setBackgroundColor(Color.parseColor("#00ff00"));
+            }else{
+                ((ImageView) findViewById(R.id.left_block)).setBackgroundColor(Color.parseColor("#ff0000"));
+            }
+            if (usRight_==0){
+                ((ImageView) findViewById(R.id.right_block)).setBackgroundColor(Color.parseColor("#00ff00"));
+            }else{
+                ((ImageView) findViewById(R.id.right_block)).setBackgroundColor(Color.parseColor("#ff0000"));
+            }
+            if (usBack_==0){
+                ((ImageView) findViewById(R.id.back_block)).setBackgroundColor(Color.parseColor("#00ff00"));
+            }else{
+                ((ImageView) findViewById(R.id.back_block)).setBackgroundColor(Color.parseColor("#ff0000"));
+            }
             handler.postDelayed(getControlsThread, 10);
         }
     };
+
 
     // steer wheel rotating animation
     private void animate(double fromDegrees, double toDegrees, long durationMillis) {
