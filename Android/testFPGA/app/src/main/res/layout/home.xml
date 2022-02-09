@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+    android:background="@drawable/gradient_">
+    <RelativeLayout
+
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+
+        android:background="@drawable/gradient_">
+
+
+    <RelativeLayout
+            android:id="@+id/gpsnlog"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/gps"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/round_background"
+                android:src="@drawable/gps" />
+
+            <ImageButton
+                android:id="@+id/log"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/round_background"
+                android:src="@drawable/log" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/userid"
+            android:layout_alignBottom="@+id/gpsnlog"
+            android:layout_marginBottom="-20dp"
+            android:layout_centerInParent="true">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:textSize="50dp"
+                android:text="AP093"
+                android:textColor="@color/white" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:id="@+id/switches"
+            android:layout_alignBottom="@+id/userid"
+            android:layout_marginBottom="-110dp"
+            android:orientation="horizontal">
+
+
+            <ImageButton
+                android:id="@+id/lock"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginEnd="30dp"
+                android:layout_toStartOf="@+id/power"
+                android:background="@drawable/round_background"
+                android:src="@drawable/lock" />
+
+            <ImageButton
+                android:id="@+id/power"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/round_background"
+                android:src="@drawable/power" />
+
+            <ImageButton
+                android:id="@+id/unlock"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="30dp"
+                android:layout_toEndOf="@+id/power"
+                android:background="@drawable/round_background"
+                android:src="@drawable/unlock" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_alignBottom="@+id/switches"
+            android:id="@+id/car"
+            android:layout_marginBottom="-180dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/car" />
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignBottom="@+id/car"
+            android:id="@+id/status"
+            android:layout_marginBottom="-10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:id="@+id/statusBar"
+                android:layout_centerHorizontal="true"
+                android:text="status: {loading_} "
+                android:textColor="@color/white"
+                android:textSize="30dp"/>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/MODES"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_alignBottom="@+id/status"
+            android:layout_marginBottom="-150dp"
+            android:orientation="horizontal">
+
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginStart="70dp"
+                android:id="@+id/re"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/remote"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitEnd"
+                    android:src="@drawable/remote_" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="71dp"
+                    android:layout_alignBottom="@+id/remote"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="-62dp"
+                    android:text="Remote mode"
+                    android:textColor="@color/white"
+                    android:textSize="13dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="100dp"
+                android:layout_height="150dp"
+                android:layout_alignParentRight="true"
+                android:layout_toEndOf="@+id/re"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/auto"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitEnd"
+                    android:src="@drawable/auto" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="71dp"
+                    android:layout_alignBottom="@+id/auto"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="-62dp"
+                    android:text="Auto mode"
+                    android:textColor="@color/white"
+                    android:textSize="13dp" />
+
+            </RelativeLayout>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/cam"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_alignBottom="@+id/MODES"
+            android:layout_marginBottom="-107dp"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/camera"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerHorizontal="true"
+                android:background="@android:color/transparent"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/cam" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignBottom="@+id/camera"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="-38dp"
+                android:text="camera view"
+                android:textColor="@color/white"
+                android:textSize="13dp" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>
