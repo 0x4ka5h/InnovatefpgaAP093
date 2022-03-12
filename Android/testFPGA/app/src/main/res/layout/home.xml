@@ -34,14 +34,14 @@
                 android:background="@drawable/round_background"
                 android:src="@drawable/gps" />
 
-            <ImageButton
-                android:id="@+id/log"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginEnd="15dp"
-                android:background="@drawable/round_background"
-                android:src="@drawable/log" />
+        <ImageButton
+            android:id="@+id/log"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/round_background"
+            android:src="@drawable/log" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -56,9 +56,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:gravity="center"
-                android:textSize="50dp"
                 android:text="AP093"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="50dp" />
 
         </RelativeLayout>
 

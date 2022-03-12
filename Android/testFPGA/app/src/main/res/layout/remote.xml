@@ -25,12 +25,12 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="16dp"
             android:src="@drawable/meter"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints"
-            android:layout_marginLeft="30dp" />
+            tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/speedo"
@@ -70,36 +70,38 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints">
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_height="50dp">
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
                 <ImageView
                     android:id="@+id/left_block"
                     android:layout_width="30dp"
 
-                    android:background="@color/black"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:background="@color/black" />
 
                 <ImageView
                     android:id="@+id/car_block"
                     android:layout_width="30dp"
-                    android:src="@drawable/carblock"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:src="@drawable/carblock" />
 
                 <ImageView
                     android:id="@+id/right_block"
                     android:layout_width="30dp"
-                    android:background="@color/black"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:background="@color/black" />
 
             </LinearLayout>
 
             <ImageView
                 android:id="@+id/back_block"
                 android:layout_width="match_parent"
-                android:background="@color/black"
-                android:layout_height="30dp" />
+                android:layout_height="30dp"
+                android:background="@color/black" />
 
 
         </LinearLayout>

@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
             Intent serviceIntent = new Intent(this, MyForegroundService.class);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 startForegroundService(serviceIntent);
+                int s=1;
             }
         }
         if (! Python.isStarted()) {

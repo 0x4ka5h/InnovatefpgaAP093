@@ -5,15 +5,15 @@
       <map>
         <entry key="app/src/main/res/drawable/dialog_cross.xml" value="0.1875" />
         <entry key="app/src/main/res/drawable/gradient_.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.18" />
-        <entry key="app/src/main/res/layout/automode.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/automode.xml" value="0.25" />
         <entry key="app/src/main/res/layout/camview.xml" value="0.15" />
         <entry key="app/src/main/res/layout/dialog.xml" value="0.1453125" />
         <entry key="app/src/main/res/layout/gps.xml" value="0.1453125" />
         <entry key="app/src/main/res/layout/gps_popup.xml" value="0.19375" />
-        <entry key="app/src/main/res/layout/gpspopup.xml" value="0.1453125" />
+        <entry key="app/src/main/res/layout/gpspopup.xml" value="0.14" />
         <entry key="app/src/main/res/layout/home.xml" value="0.19375" />
-        <entry key="app/src/main/res/layout/remote.xml" value="0.1453125" />
+        <entry key="app/src/main/res/layout/remote.xml" value="0.16" />
       </map>
     </option>
   </component>

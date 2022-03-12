@@ -8,12 +8,12 @@ import io
 global sessionId_
 sessionId_ = requests.Session()
 
-
-
+url = "http://192.168.196.27:5000"
+global finalImage
 ###################################################     '''''''      auth      ''''''''''         ################################
 def ownerSignUp(usrName,passWd_):
 	data = {"type_":"owner","username":usrName,"password":passWd_}
-	req = sessionId_.post("http://192.168.43.217:5000/signup/",json = data)
+	req = sessionId_.post(url+"/signup/",json = data)
 
 	if (req.json()['request']=='success'):
 		return "201"
@@ -22,18 +22,18 @@ def ownerSignUp(usrName,passWd_):
 
 def ownerLogIn(usrName,passWd_):
     data = {"type_":"owner","username":usrName,"password":passWd_}
-    req = sessionId_.post("http://192.168.43.217:5000/Login/",json = data)
+    req = sessionId_.post(url+"/Login/",json = data)
     if (req.json()['request']=='success'):
         return "201"
     else:
         return req.json()['Reason']
 
 def ownerLogout():
-	req = sessionId_.get("http://192.168.43.217:5000/logout/")
+	req = sessionId_.get(url+"/logout/")
 
 
 def vehicleStatus():
-	req = sessionId_.get("http://192.168.43.217:5000/api/vehicleStatus")
+	req = sessionId_.get(url+"/api/vehicleStatus")
 
 	if (req.json()['status']):
 		return req.json()['status']
@@ -45,7 +45,7 @@ def vehicleStatus():
 
 def gpsLocation(code):
 	data = {"vehicleCode":code}
-	req = sessionId_.post("http://192.168.43.217:5000/api/gpsLocationCurrent/",json = data)
+	req = sessionId_.post(url+"/api/gpsLocationCurrent/",json = data)
 
 
 	if (req.status_code == 201):
@@ -56,7 +56,7 @@ def gpsLocation(code):
 
 def gpsTracker(code):
 	data = {"vehicleCode":code}
-	req = sessionId_.post("http://192.168.43.217:5000/api/gpsLocationTrack/",json = data)
+	req = sessionId_.post(url+"/api/gpsLocationTrack/",json = data)
 
 
 	if (req.status_code == 201):
@@ -66,7 +66,7 @@ def gpsTracker(code):
 
 def gpsCoveredPaths(code):
 	data = {"vehicleCode":code}
-	req = sessionId_.post("http://192.168.43.217:5000/api/gpsLocationCovered/",json = data)
+	req = sessionId_.post(url+"/api/gpsLocationCovered/",json = data)
 
 
 	if (req.status_code == 201):
@@ -77,17 +77,17 @@ def gpsCoveredPaths(code):
 #####################################     '''''''      Driving Mode and Camera View     ''''''''''         ################################
 def drivingModes(mode,view):
 	data = {'mode':mode,'view':view}		# 0-Normal , 1-Remote mode , 2-AutoMode # 0-off , 1-inside camera view , 2-outsideView
-	req = sessionId_.post("http://192.168.43.217:5000/api/commands/commandsPassing/",json = data)
+	req = sessionId_.post(url+"/api/commands/commandsPassing/",json = data)
 
 '''#############    '''''''       Remote Driving Mode      ''''''''''        #############'''
 
 
 def remoteCommandsToVehicle(angle_,break_,accelarator_):
 	data = {'steerAngle':angle_,'breakFunc':break_,'acccelarationFunc':accelarator_}
-	req = sessionId_.post("http://192.168.43.217:5000/api/fromOwner/forRemote/remoteCommandsToVehicle/",json = data)
+	req = sessionId_.post(url+"/api/fromOwner/forRemote/remoteCommandsToVehicle/",json = data)
 
 def retrieveforRC():
-	req = sessionId_.get("http://192.168.43.217:5000/api/fromVehicle/forRemote/retrieveforRC/")
+	req = sessionId_.get(url+"/api/fromVehicle/forRemote/retrieveforRC/")
 	if (req.status_code == 201):
 		speed_ = req.json()['speed_']
 		usLeft_ = req.json()['ultraSonicLeft_']
@@ -99,23 +99,34 @@ def retrieveforRC():
 
 def camViewByIndex(index):
 	data = {'camIndex':index}
-	req = sessionId_.post("http://192.168.43.217:5000/api/stream/cameraStreamByOwner/",json=data)
-	if (req.status_code == 200):
-		dec = base64.b64decode(req.content)
-		nparr = np.fromstring(dec, np.uint8)
-		image_ = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-		pilImage = Image.fromarray(image_)
-		byteIO = io.BytesIO()
-		pilImage.save(byteIO,format='PNG')
-		finalImage = base64.b64encode(byteIO.getvalue())
+	req = sessionId_.post(url+"/api/stream/cameraStreamByOwner/",json=data)
+	try:
+		if (req.status_code == 200):
+			dec = base64.b64decode(req.content)
+			nparr = np.fromstring(dec, np.uint8)
+			image_ = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+			image_ = cv2.rotate(image_,cv2.ROTATE_90_COUNTERCLOCKWISE)
+			pilImage = Image.fromarray(image_)
+
+			byteIO = io.BytesIO()
+			pilImage.save(byteIO,format='PNG')
+			finalImage = base64.b64encode(byteIO.getvalue())
+			return ""+ str(finalImage,'utf-8')
+		else:
+			return "0"
+	except:
 		return ""+ str(finalImage,'utf-8')
-	else:
-		return "0"
 
 def validateThroughNotification():
-	req = sessionId_.post("http://192.168.43.217:5000/api/vehicle/validateThroughNotification/")
+	req = sessionId_.get(url+"/api/vehicle/validateThroughNotification/")
 	if (req.status_code == 200):
 		return req.json()['isthreat']
 	else:
 		return "0"
 
+def autoMode(gps="0"):
+	if gps=="0":
+		sessionId_.post(url+"/api/sendautoInstruction/",json={'gps':"0",'pPath':1})
+	else:
+		sessionId_.post(url+"/api/sendautoInstruction/",json={'gps':str(gps),'pPath':0})
+	return "1"

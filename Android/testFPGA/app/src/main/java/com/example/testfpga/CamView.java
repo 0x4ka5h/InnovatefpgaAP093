@@ -21,6 +21,7 @@ public class CamView extends AppCompatActivity {
     PyObject pym = py.getModule("backEndRequestCalls");
     int Index = 1;
     ImageButton rotateCam;
+    Bitmap futureUse;
     private Handler handler = new Handler();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +48,21 @@ public class CamView extends AppCompatActivity {
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            PyObject frame = pym.callAttr("camViewByIndex", Index);
-            String str_ = frame.toString();
-            byte data[] = android.util.Base64.decode(str_, Base64.DEFAULT);
-            Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-            ((ImageView) findViewById(R.id.imageOfCamView)).setImageBitmap(bmp);
-            handler.postDelayed(runnable, 20);
+            try{
+                PyObject frame = pym.callAttr("camViewByIndex", Index);
+                String str_ = frame.toString();
+                byte data[] = android.util.Base64.decode(str_, Base64.DEFAULT);
+                Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                ((ImageView) findViewById(R.id.imageOfCamView)).setImageBitmap(bmp);
+                handler.postDelayed(runnable, 20);
+                futureUse = bmp;
+
+            }catch(Exception e){
+
+                ((ImageView) findViewById(R.id.imageOfCamView)).setImageBitmap(futureUse);
+                handler.postDelayed(runnable, 20);
+            }
+
         }
     };
 

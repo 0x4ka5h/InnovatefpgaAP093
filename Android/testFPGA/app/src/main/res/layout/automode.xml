@@ -1,6 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="fill_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/gradient_"
+    android:padding="20dp"
+    android:layout_width="fill_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:id="@+id/login_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Back to:"
+            android:textSize="20dp"
+            android:textColor="@color/white_greyish"
+            />
+        <View
+            android:layout_width="fill_parent"
+            android:layout_marginTop="5dp"
+            android:layout_height="1px"
+            android:background="@color/white_greyish" />
+
+
+
+        <EditText
+            android:id="@+id/gpsPoints"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="Enter GPS coordinates"
+            android:background="@android:color/transparent"
+            android:drawableStart="@android:drawable/arrow_up_float"
+            android:drawablePadding="8dp"
+            android:gravity="center_vertical"
+
+            android:hint="Enter GPS coordinates"
+
+            android:inputType=""
+            android:padding="20dp"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textColorHint="@color/lite"
+            android:textSize="16sp"
+            android:drawableLeft="@android:drawable/arrow_up_float" />
+
+
+        <TextView
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:text="or"
+            android:textSize="20dp"
+
+            android:textColor="@color/white_greyish"/>
+
+        <CheckBox
+            android:id="@+id/toPreviousGPS"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="To previcus Stating point"
+            android:textColor="@color/white_greyish"
+            android:textSize="17dp"
+            />
+        <View
+            android:layout_width="fill_parent"
+
+            android:layout_marginTop="5dp"
+            android:layout_height="1px"
+
+            android:background="@color/white_greyish" />
+        <Button
+            android:id="@+id/done_"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:background="@drawable/gradient_"
+            android:padding="3dp"
+            android:layout_gravity="center"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Done"
+            android:textColor="#009688"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</RelativeLayout>
