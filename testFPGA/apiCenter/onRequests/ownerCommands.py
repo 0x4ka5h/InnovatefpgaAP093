@@ -1,3 +1,4 @@
+import json
 from sqlalchemy import text
 from flask_login import login_required
 from flask import Blueprint, jsonify, redirect, request, url_for
@@ -53,8 +54,8 @@ def commandsPassing():
 
 
 
-@ownerCommandsauth.route("/api/commands/retrieveOwnerCommands/",methods=['GET'])
-@login_required
+@ownerCommandsauth.route("/api/commands/retrieveOwnerCommands/")
+#@login_required
 
 def retrieveOwnerCommands():
     query = "SELECT * FROM owner_commands"
@@ -65,3 +66,72 @@ def retrieveOwnerCommands():
     print({"mode":mode,"view":view})
 
     return jsonify({"mode":mode,"view":view}),201
+
+@ownerCommandsauth.route("/api/sendRFSDetails/",methods=['POST'])
+#@login_required
+
+def sendRFSDetails():
+    data = request.json
+    
+#    data = request.json.get('rfsData')
+    f = open('apiCenter/ownerSide/RFSdata.txt','w+')
+    json_object = json.dumps(data, indent = 4)
+    f.write(json_object)
+    f.close()
+    return "Ok",200
+
+
+
+@ownerCommandsauth.route("/api/requestRFSDetails/")
+@login_required
+
+def requestRFSDetails():
+    f = open('apiCenter/ownerSide/RFSdata.txt','r+')
+    data = json.load(f)
+    f.close()
+    #data = json.dump(data)
+    data = jsonify(data)
+    #print(type(data))
+    
+    data.headers.add("Access-Control-Allow-Origin", "*")
+    return data
+
+
+@ownerCommandsauth.route("/api/sendautoInstruction/",methods=['POST'])
+@login_required
+def sendautoInstruction():
+    data = request.json
+    if data['gps']=='0' and data['pPath']==1:
+        _conn =db.session.execute(text("SELECT * FROM vehicle_details WHERE status_ == 'inActive' AND vehicleCode_ == 'ap093'"))
+        _conn = _conn.mappings().all()
+        id_ = str(_conn[-1]['id'])
+        result =db.session.execute(text("SELECT * FROM vehicle_details WHERE vehicleCode_ == 'ap093' AND id >= "+id_))
+        result_ = result.mappings().all()
+        #id_ = _conn[-1]['id']
+        track=[]
+        for i in result_:
+            track.append(i['gpsPointCurr_'])
+        data['location'] = str(track[0])
+    else:
+        data['location'] = 0
+#    data = request.json.get('rfsData')
+    f = open('apiCenter/ownerSide/path.txt','w+')
+    json_object = json.dumps(data, indent = 4)
+    f.write(json_object)
+    f.close()
+    return "Ok",200
+
+
+
+@ownerCommandsauth.route("/api/requestautoInstruction/")
+@login_required
+def requestautoInstruction():
+    f = open('apiCenter/ownerSide/path.txt','r+')
+    data = json.load(f)
+    f.close()
+    #data = json.dump(data)
+    data = jsonify(data)
+    #print(type(data))
+    
+    data.headers.add("Access-Control-Allow-Origin", "*")
+    return data

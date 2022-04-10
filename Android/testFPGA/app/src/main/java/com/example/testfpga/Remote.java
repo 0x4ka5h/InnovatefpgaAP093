@@ -54,25 +54,26 @@ public class Remote extends AppCompatActivity implements View.OnTouchListener {
         // controls
         break__ = findViewById(R.id.break_);
         break__.setOnClickListener(
-                new View.OnClickListener(){
-                    @Override
-                    public void onClick(View v) {
-                        if (breakFunc_ == 0){
-
-                        }
+            new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    if (breakFunc_ == 0){
+                        breakFunc_ = 1;
+                        accelaratorFunc_ = 0;
                     }
                 }
+            }
         );
 
         accelarator = findViewById(R.id.accelarator);
         accelarator.setOnClickListener(
-                new View.OnClickListener(){
-                    @Override
-                    public void onClick(View v) {
-
-                    }
+            new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    breakFunc_ = 0;
+                    accelaratorFunc_ = 1;
                 }
-
+            }
         );
 
         /*accelarator.setOnTouchListener(new View.OnTouchListener() {
@@ -85,13 +86,13 @@ public class Remote extends AppCompatActivity implements View.OnTouchListener {
         //location
         location = findViewById(R.id.location);
         location.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ViewDialog alert = new ViewDialog();
-                        alert.showDialog(Remote.this);
-                    }
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ViewDialog alert = new ViewDialog();
+                    alert.showDialog(Remote.this);
                 }
+            }
         );
 
         handler.post(camViewThread);

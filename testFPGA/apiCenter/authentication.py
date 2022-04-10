@@ -40,10 +40,11 @@ def singUp():
 #################################   login   #####################################
 @auth.route("/Login/"  , methods = ['POST'])
 def logIn():
+    print(request.data)
     type_ = request.json.get('type_')
     username = request.json.get('username')
     password = request.json.get('password')
-    
+
     if type_ is None:
         return jsonify({ 'request': "failed" ,"Reason" : "Please provide role/type_"}), 201
 

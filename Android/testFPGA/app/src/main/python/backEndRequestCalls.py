@@ -5,10 +5,9 @@ from PIL import Image
 import base64
 import io
 
-global sessionId_
 sessionId_ = requests.Session()
 
-url = "http://192.168.196.27:5000"
+url = "http://192.168.137.149:5000"
 global finalImage
 ###################################################     '''''''      auth      ''''''''''         ################################
 def ownerSignUp(usrName,passWd_):
@@ -21,12 +20,12 @@ def ownerSignUp(usrName,passWd_):
 		return req.json()['Reason']
 
 def ownerLogIn(usrName,passWd_):
-    data = {"type_":"owner","username":usrName,"password":passWd_}
-    req = sessionId_.post(url+"/Login/",json = data)
-    if (req.json()['request']=='success'):
-        return "201"
-    else:
-        return req.json()['Reason']
+	data = {"type_":"owner","username":usrName,"password":passWd_}
+	req = sessionId_.post(url+"/Login/",json = data)
+	if (req.json()['request']=='success'):
+		return "201"
+	else:
+		return req.json()['Reason']
 
 def ownerLogout():
 	req = sessionId_.get(url+"/logout/")
@@ -105,7 +104,7 @@ def camViewByIndex(index):
 			dec = base64.b64decode(req.content)
 			nparr = np.fromstring(dec, np.uint8)
 			image_ = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-			image_ = cv2.rotate(image_,cv2.ROTATE_90_COUNTERCLOCKWISE)
+			#image_ = cv2.rotate(image_,cv2.ROTATE_90_COUNTERCLOCKWISE)
 			pilImage = Image.fromarray(image_)
 
 			byteIO = io.BytesIO()
@@ -117,12 +116,22 @@ def camViewByIndex(index):
 	except:
 		return ""+ str(finalImage,'utf-8')
 
-def validateThroughNotification():
+def validateThroughNotification(index):
 	req = sessionId_.get(url+"/api/vehicle/validateThroughNotification/")
 	if (req.status_code == 200):
-		return req.json()['isthreat']
+		if index==0:
+			return req.json()['isUnknown']
+		elif index==1:
+			return req.json()['isTowing']
+		elif index==2:
+			return req.json()['isDeclined']
 	else:
 		return "0"
+
+def acceptORdecline(choice):
+	data = {'choice':choice}
+	sessionId_.get(url+"/api/vehicle/AcceptanceORDecline/",json = data)
+
 
 def autoMode(gps="0"):
 	if gps=="0":

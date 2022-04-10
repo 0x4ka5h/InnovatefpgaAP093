@@ -14,7 +14,7 @@ ownerGPSauth = Blueprint("ownerGPSauth",__name__)
 
 def gpsLocationCurrent():
     code_ = str(request.json.get('vehicleCode'))
-
+    
     result=db.session.execute(text("SELECT * FROM vehicle_details WHERE vehicleCode_ == '"+code_+"'"))
     result = result.mappings().all()
     

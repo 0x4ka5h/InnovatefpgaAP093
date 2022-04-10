@@ -30,7 +30,7 @@ def addDataToTrustedPersons():
     dec = base64.b64decode(data)
     nparr = np.fromstring(dec, np.uint8)
     image_ = cv2.imdecode(nparr, cv2.IMREAD_GRAYSCALE)
-    if (count<=10):
+    if (count<=100):
         path_to=path+str(count)+".png"
         cv2.imwrite(path_to,image_)
     return jsonify({"request":"successfull"})
@@ -51,21 +51,17 @@ def addDataToDeclinedPersons():
     nparr = np.fromstring(dec, np.uint8)
     image_ = cv2.imdecode(nparr, cv2.IMREAD_GRAYSCALE)
 
-    if (count<=10):
+    if (count<=100):
         path_to=path+str(count)+".png"
         cv2.imwrite(path_to,image_)
     return jsonify({"request":"successfull"})
 
 
-
-
 @reConstructingAuth.route("/api/vehicle/validateFace/reConstructModelToTrust/")
-@login_required
+#@login_required
 def reConstructModelToTruste():
     validatingPerson.trainTrustedPersons()
     return jsonify({"request":"successfull"})
-
-
 
 
 @reConstructingAuth.route("/api/vehicle/validateFace/reConstructModelToDecline/")

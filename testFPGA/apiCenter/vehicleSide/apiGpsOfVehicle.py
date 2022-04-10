@@ -2,6 +2,8 @@ from flask_login import login_required
 from flask import Blueprint, jsonify, redirect, request, url_for
 from ..model import vehicleDetails
 from .. import db
+from flask_login import login_required, current_user
+
 vehicleGPSauth = Blueprint("vehicleGPSauth",__name__)
 
 
@@ -31,3 +33,14 @@ def sendVehicleDetails():
         return jsonify({ 'request': "failed" ,"Reason" : "timeStamp should be Unique"}), 201
     
     return jsonify({'request': "Success"}), 201
+
+
+
+
+'''
+@vehicleGPSauth.route("/api/vehicle/details/")
+@login_required
+def fetchDetails():
+    userId = current_user.username
+    driver = "oj"
+    return "ok"'''

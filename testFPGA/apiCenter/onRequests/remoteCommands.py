@@ -24,7 +24,7 @@ def remoteCommandsToVehicle():
 
 
 @remoteCommandsauth.route('/api/fromOwner/forRemote/retrieveRemoteCommands/')
-@login_required
+#@login_required
 def retrieveRemoteCommands():
     query_ = "SELECT * FROM remote_control_values WHERE steerAngle_ = 0 AND breakFunc_ = 0 AND acccelarationFunc_= 0"
     _conn = db.session.execute(text(query_))
@@ -32,10 +32,13 @@ def retrieveRemoteCommands():
     id_=None
     try:
         query__ = "SELECT * FROM remote_control_values"
+
         _conn_ = db.session.execute(text(query__))
-        _conn_ = _conn_.mappings().all()
-        print(_conn_)
+        
+        _conn = _conn_.mappings().all()
+
         id_ = str(_conn[-1]['id'])
+        
     except:
         pass
     print(id_)

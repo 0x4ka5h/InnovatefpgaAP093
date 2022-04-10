@@ -21,7 +21,7 @@ def cameraStreamByOwner():
         print(1)
         return base_encoded
     elif int(camIndex_) == 2:
-        image = cv2.imread("apiCenter/static/2/view.jpg")
+        image = cv2.imread("apiCenter/static/2/view.png")
         _,encoded = cv2.imencode('.png',image)
         base_encoded = base64.b64encode(encoded)
         print(2)
@@ -29,7 +29,7 @@ def cameraStreamByOwner():
 
 
 @cameraStreamauth.route("/api/stream/cameraStreamFromVehicle/",methods=['POST'])
-@login_required
+#@login_required
 def cameraStreamFromVehicle():
 
     camIndex_ = request.json.get('camIndex')
